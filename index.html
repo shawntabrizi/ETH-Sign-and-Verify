@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Shawn Tabrizi">
+  <link rel="icon" href="">
+
+  <title>Sign and verify messages with Ethereum</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+    crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="custom.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Begin page content -->
+  <main role="main" class="container">
+    <div class="jumbotron mt-3">
+      <h1>Sign and verify messages with Ethereum</h1>
+    </div>
+    <div>
+      <h3>Sign a message using your Ethereum account</h2>
+        <div class="alert alert-info">You will need
+          <a href="https://metamask.io/">MetaMask</a> to sign a message.
+        </div>
+        <div class="form-group">
+          <label for="message_sign">Message to sign:</label>
+          <textarea class="form-control" id="message_to_sign" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="sign_message_button">Sign Message</button>
+        </div>
+        <div class="form-group">
+          <label for="signature_output">Signature Output:</label>
+          <div class="alert alert-secondary code" id="signature_output"></div>
+        </div>
+    </div>
+    <hr>
+    <div>
+      <h3>Verify a message was signed by an Ethereum account</h2>
+        <div class="form-group">
+          <label for="message_verify">Message to verify:</label>
+          <textarea class="form-control" id="message_to_verify" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="signature">Signature:</label>
+          <input class="form-control" type="text" id="signature">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="verify_message_button">Verify Message</button>
+        </div>
+        <div class="form-group">
+          <label for="signature_output">Signing Address:</label>
+          <div class="alert alert-secondary code" id="signing_address_output"></div>
+        </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">Created by
+        <a href="https://shawntabrizi.com">Shawn Tabrizi</a> - Source on
+        <a href="https://github.com/shawntabrizi">GitHub</a> - Using
+        <a href="http://web3js.readthedocs.io/en/1.0/index.html">Web3.js 1.0</a>
+      </span>
+
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+    crossorigin="anonymous"></script>
+
+  <!-- Custom Javascript-->
+  <script src="web3.min.js"></script>
+  <script src="eth-sign-verify.js"></script>
+</body>
+
+</html>
