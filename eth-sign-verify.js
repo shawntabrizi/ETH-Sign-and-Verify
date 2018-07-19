@@ -4,15 +4,18 @@ window.addEventListener('load', function () {
         window.web3 = new Web3(web3.currentProvider);
     } else {
         console.log('No Web3 Detected... please install Metamask')
+        document.getElementById("metamask_warning").hidden = false
     }
 })
 
 
 async function sign_message() {
     var message = document.getElementById("message_to_sign").value
-    var hash = web3.utils.sha3(message)
+    if (document.getElementById("hash_check").checked) {
+        message = web3.utils.sha3(message)
+    }
     var accounts = await web3.eth.getAccounts()
-    var signed_message = await web3.eth.personal.sign(hash, accounts[0])
+    var signed_message = await web3.eth.personal.sign(message, accounts[0])
     document.getElementById("signature_output").innerText = signed_message
 }
 
@@ -23,8 +26,10 @@ sign_message_button.addEventListener("click", sign_message);
 async function verify_message() {
     var message = document.getElementById("message_to_verify").value
     var signature = document.getElementById("signature").value
-    var hash = web3.utils.sha3(message)
-    var signing_address = await web3.eth.personal.ecRecover(hash, signature)
+    if (document.getElementById("hash_check").checked) {
+        message = web3.utils.sha3(message)
+    }
+    var signing_address = await web3.eth.personal.ecRecover(message, signature)
     document.getElementById("signing_address_output").innerText = signing_address
 }
 

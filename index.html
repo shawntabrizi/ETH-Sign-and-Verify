@@ -23,10 +23,13 @@
   <main role="main" class="container">
     <div class="jumbotron mt-3">
       <h1>Sign and verify messages with Ethereum</h1>
+      <div class="checkbox">
+          <label><input type="checkbox" id="hash_check"> Hash message with SHA3</label>
+        </div>
     </div>
     <div>
       <h3>Sign a message using your Ethereum account</h2>
-        <div class="alert alert-info">You will need
+        <div class="alert alert-info" id="metamask_warning" hidden>You will need
           <a href="https://metamask.io/">MetaMask</a> to sign a message.
         </div>
         <div class="form-group">
