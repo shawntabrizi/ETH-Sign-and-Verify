@@ -1,7 +1,9 @@
-window.addEventListener('load', function () {
-    if (typeof web3 !== 'undefined') {
-        console.log('Web3 Detected! ' + web3.currentProvider.constructor.name)
-        window.web3 = new Web3(web3.currentProvider);
+window.addEventListener('load', async function () {
+    if (typeof window.ethereum !== 'undefined') {
+        console.log('Web3 Detected! ')
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.request({ method: 'eth_requestAccounts' })
+        console.log('ChainID: ', +window.ethereum.chainId)
     } else {
         console.log('No Web3 Detected... please install Metamask')
         document.getElementById("metamask_warning").hidden = false
