@@ -1,37 +1,44 @@
+// Check for wallet on load
 window.addEventListener('load', function () {
-    if (typeof web3 !== 'undefined') {
-        console.log('Web3 Detected! ' + web3.currentProvider.constructor.name)
-        window.web3 = new Web3(web3.currentProvider);
-    } else {
-        console.log('No Web3 Detected... please install Metamask')
-        document.getElementById("metamask_warning").hidden = false
+    if (!window.ethereum) {
+        document.getElementById("metamask_warning").hidden = false;
     }
-})
-
+});
 
 async function sign_message() {
-    var message = document.getElementById("message_to_sign").value
-    if (document.getElementById("hash_check").checked) {
-        message = web3.utils.sha3(message)
+    var output = document.getElementById("signature_output");
+    try {
+        var provider = new ethers.BrowserProvider(window.ethereum);
+        var signer = await provider.getSigner();
+
+        var message = document.getElementById("message_to_sign").value;
+        if (document.getElementById("hash_check").checked) {
+            message = ethers.keccak256(ethers.toUtf8Bytes(message));
+        }
+
+        var signature = await signer.signMessage(message);
+        output.innerText = signature;
+    } catch (error) {
+        output.innerText = error.message;
     }
-    var accounts = await web3.eth.getAccounts()
-    var signature = await web3.eth.personal.sign(message, accounts[0])
-    document.getElementById("signature_output").innerText = signature
 }
 
-var sign_message_button = document.getElementById("sign_message_button")
-sign_message_button.addEventListener("click", sign_message);
+function verify_message() {
+    var output = document.getElementById("signing_address_output");
+    try {
+        var message = document.getElementById("message_to_verify").value;
+        var signature = document.getElementById("signature").value;
 
+        if (document.getElementById("hash_check").checked) {
+            message = ethers.keccak256(ethers.toUtf8Bytes(message));
+        }
 
-async function verify_message() {
-    var message = document.getElementById("message_to_verify").value
-    var signature = document.getElementById("signature").value
-    if (document.getElementById("hash_check").checked) {
-        message = web3.utils.sha3(message)
+        var signing_address = ethers.verifyMessage(message, signature);
+        output.innerText = signing_address;
+    } catch (error) {
+        output.innerText = error.message;
     }
-    var signing_address = await web3.eth.personal.ecRecover(message, signature)
-    document.getElementById("signing_address_output").innerText = signing_address
 }
 
-var verify_message_button = document.getElementById("verify_message_button")
-verify_message_button.addEventListener("click", verify_message);
+document.getElementById("sign_message_button").addEventListener("click", sign_message);
+document.getElementById("verify_message_button").addEventListener("click", verify_message);
